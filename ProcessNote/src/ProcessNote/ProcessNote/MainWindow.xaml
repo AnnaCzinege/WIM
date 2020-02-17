@@ -16,11 +16,8 @@
             <MenuItem Header="Options">
                 <MenuItem Header="Always on top" Click="aotClick" IsCheckable="True"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Minimize on use"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Hide when minimized"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Set default tab"></MenuItem>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Refresh now"></MenuItem>
