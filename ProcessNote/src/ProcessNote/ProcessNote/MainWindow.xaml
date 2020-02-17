@@ -45,6 +45,7 @@
                             </Canvas>
                         </TabItem>
                         <TabItem Header="Status"/>
+                        <TabItem Header="NorbiEgyNagy"/>
                         <TabItem Header="CPU"/>
                         <TabItem Header="Memory"/>
                         <TabItem Header="Disk"/>
