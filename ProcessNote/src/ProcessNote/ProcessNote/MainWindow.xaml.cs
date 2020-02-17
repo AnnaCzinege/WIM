@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,5 +25,45 @@ namespace ProcessNote
         {
             InitializeComponent();
         }
+
+        private Process[] processes;
+
+        void GetAllProcesses()
+        {
+            processes = Process.GetProcesses();
+            ListBox.Items.Clear();
+            foreach (var process in processes)
+            {
+                ListBox.Items.Add(process.ProcessName);
+            }
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            GetAllProcesses();
+        }
+
+        private void aotClick(object sender, RoutedEventArgs e)
+        {
+            if (Window.Topmost == false)
+            {
+                Window.Topmost = true;
+            }
+            else
+            {
+                Window.Topmost = false;
+            }
+        }
     }
 }
+

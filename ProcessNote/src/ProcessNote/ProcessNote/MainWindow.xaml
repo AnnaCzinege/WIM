@@ -14,7 +14,7 @@
                 <MenuItem Header="Exit"></MenuItem>
             </MenuItem>
             <MenuItem Header="Options">
-                <MenuItem Header="Always on top" Click="aotClick"></MenuItem>
+                <MenuItem Header="Always on top" Click="aotClick" IsCheckable="True"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Minimize on use"></MenuItem>
                 <Separator></Separator>
@@ -49,6 +49,7 @@
                         <TabItem Header="Memory"/>
                         <TabItem Header="Disk"/>
                         <TabItem Header="Network"/>
+                        <TabItem Header="Test"/>
                     </TabControl>
                 </Canvas>
             </TabItem>
@@ -58,6 +59,8 @@
             <TabItem Header="Users"/>
             <TabItem Header="Details"/>
             <TabItem Header="Services"/>
+            <TabItem Header="Test2"/>
+            <TabItem Header="Test3"/>
         </TabControl>
 
     </DockPanel>
