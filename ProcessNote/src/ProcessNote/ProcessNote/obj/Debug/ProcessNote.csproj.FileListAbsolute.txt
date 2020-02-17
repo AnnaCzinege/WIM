@@ -26,3 +26,17 @@ D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNot
 D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.csproj.GenerateResource.cache
 D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.exe
 D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.pdb
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\bin\Debug\ProcessNote.exe.config
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\bin\Debug\ProcessNote.exe
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\bin\Debug\ProcessNote.pdb
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.csprojAssemblyReference.cache
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\MainWindow.g.cs
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\App.g.cs
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote_MarkupCompile.cache
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote_MarkupCompile.lref
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\MainWindow.baml
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.g.resources
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.Properties.Resources.resources
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.csproj.GenerateResource.cache
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.exe
+C:\Users\mazie\Desktop\Advanced\Teamwork\WIM\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.pdb
