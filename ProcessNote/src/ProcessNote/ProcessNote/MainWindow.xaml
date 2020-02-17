@@ -16,7 +16,9 @@
             <MenuItem Header="Options">
                 <MenuItem Header="Always on top" Click="aotClick" IsCheckable="True"></MenuItem>
                 <Separator></Separator>
+                <MenuItem Header="Minimize on use" IsCheckable="True"></MenuItem>
                 <Separator></Separator>
+                <MenuItem Header="Hide when minimized" IsCheckable="True"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Set default tab" IsCheckable="True"></MenuItem>
             </MenuItem>
