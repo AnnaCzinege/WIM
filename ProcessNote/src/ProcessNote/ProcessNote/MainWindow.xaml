@@ -61,8 +61,6 @@
             <TabItem Header="Users"/>
             <TabItem Header="Details"/>
             <TabItem Header="Services"/>
-            <TabItem Header="Test2"/>
-            <TabItem Header="Test3"/>
         </TabControl>
 
     </DockPanel>
