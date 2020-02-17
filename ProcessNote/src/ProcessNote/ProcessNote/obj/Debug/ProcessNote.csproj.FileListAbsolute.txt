@@ -12,3 +12,17 @@ C:\Users\czine\Documents\Codecool\1st_TW_week\WIM\processnote\src\ProcessNote\Pr
 C:\Users\czine\Documents\Codecool\1st_TW_week\WIM\processnote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.csproj.GenerateResource.cache
 C:\Users\czine\Documents\Codecool\1st_TW_week\WIM\processnote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.exe
 C:\Users\czine\Documents\Codecool\1st_TW_week\WIM\processnote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.pdb
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\bin\Debug\ProcessNote.exe.config
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\bin\Debug\ProcessNote.exe
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\bin\Debug\ProcessNote.pdb
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.csprojAssemblyReference.cache
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\MainWindow.g.cs
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\App.g.cs
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote_MarkupCompile.cache
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote_MarkupCompile.lref
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\MainWindow.baml
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.g.resources
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.Properties.Resources.resources
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.csproj.GenerateResource.cache
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.exe
+D:\CC_C#_branch\TW1\ProcessNote\src\ProcessNote\ProcessNote\obj\Debug\ProcessNote.pdb
