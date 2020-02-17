@@ -18,6 +18,7 @@
                 <Separator></Separator>
                 <Separator></Separator>
                 <Separator></Separator>
+                <MenuItem Header="Set default tab" IsCheckable="True"></MenuItem>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Refresh now"></MenuItem>
