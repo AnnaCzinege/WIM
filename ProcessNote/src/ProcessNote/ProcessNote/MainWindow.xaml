@@ -45,13 +45,10 @@
                             </Canvas>
                         </TabItem>
                         <TabItem Header="Status"/>
-                        <TabItem Header="NorbiEgyNagy"/>
-                        <TabItem Header="NorbiKettőNagy"/>
                         <TabItem Header="CPU"/>
                         <TabItem Header="Memory"/>
                         <TabItem Header="Disk"/>
                         <TabItem Header="Network"/>
-                        <TabItem Header="Test"/>
                     </TabControl>
                 </Canvas>
             </TabItem>
