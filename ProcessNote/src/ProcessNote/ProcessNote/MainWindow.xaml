@@ -9,7 +9,7 @@
     <DockPanel Height="431">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Run new task"></MenuItem>
+                <MenuItem Header="Run new task" Click="showRunWindow"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Exit"></MenuItem>
             </MenuItem>
@@ -40,7 +40,7 @@
                     <TabControl Width="803" SelectionChanged="TabControl_SelectionChanged" Height="366">
                         <TabItem x:Name="Window1" Header="Name" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="48" Loaded="WindowLoaded">
                             <Canvas>
-                                <ListBox x:Name="ListBox" SelectionChanged="ListBox_SelectionChanged" VerticalAlignment="Center" Height="286" Width="775"/>
+                                <ListBox x:Name="ListBox" SelectionChanged="ListBox_SelectionChanged" VerticalAlignment="Center" Height="286" Width="775" SelectionMode="Extended" Loaded="showIcons"/>
                                 <Button x:Name="EndTaskButton" Content="End Task" Canvas.Left="705" Canvas.Top="291" Height="31" Width="70" Click="onClick" ></Button>
                             </Canvas>
                         </TabItem>
