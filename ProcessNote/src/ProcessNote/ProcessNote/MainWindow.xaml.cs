@@ -80,6 +80,11 @@ namespace ProcessNote
             
         }
 
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
         private void showIcons(object sender, RoutedEventArgs e)
         {
             //Icon ico = Icon

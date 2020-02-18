@@ -11,7 +11,7 @@
             <MenuItem Header="File">
                 <MenuItem Header="Run new task" Click="showRunWindow"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Exit"></MenuItem>
+                <MenuItem Header="Exit" Click="exit"></MenuItem>
             </MenuItem>
             <MenuItem Header="Options">
                 <MenuItem Header="Always on top" Click="aotClick" IsCheckable="True"></MenuItem>
