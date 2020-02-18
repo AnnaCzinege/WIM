@@ -64,6 +64,11 @@ namespace ProcessNote
                 Window.Topmost = false;
             }
         }
+
+        private void onClick(object sender, RoutedEventArgs e)
+        {
+            processes[ListBox.SelectedIndex].Kill();
+        }
     }
 }
 
