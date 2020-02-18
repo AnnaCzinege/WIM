@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
-        Title="Run" Height="145" Width="498.667">
+        Title="Run" Height="145" Width="498.667"
+        KeyDown="Window_KeyDown">
     <Grid Margin="0,0,0,4.667">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

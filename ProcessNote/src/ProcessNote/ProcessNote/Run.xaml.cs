@@ -27,17 +27,30 @@ namespace ProcessNote
 
         protected override void OnClosed(EventArgs e)
         {
-            beforeClose();
+            setRunWin();
             base.OnClosed(e);
         }
 
-        private static void beforeClose()
+        private static void setRunWin()
         {
             MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
             mainWindow.RunWin = null;
         }
 
         private void clickBtn(object sender, RoutedEventArgs e)
+        {
+            NewTask();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                NewTask();
+            }
+        }
+
+        private void NewTask()
         {
             if (!string.IsNullOrEmpty(textField.Text))
             {
@@ -46,7 +59,7 @@ namespace ProcessNote
                     Process proc = new Process();
                     proc.StartInfo.FileName = textField.Text;
                     proc.Start();
-                    beforeClose();
+                    setRunWin();
                     Close();
                 }
                 catch (Exception ex)
