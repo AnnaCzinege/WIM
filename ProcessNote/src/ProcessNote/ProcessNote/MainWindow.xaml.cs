@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -21,21 +22,38 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
+        myProcess myProcess = new myProcess();
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = myProcess;
         }
 
-        private Process[] processes;
+        public ObservableCollection<myProcess> Processes { get; set; }
+
 
         void GetAllProcesses()
         {
-            processes = Process.GetProcesses();
-            ListBox.Items.Clear();
-            foreach (var process in processes)
+            
+            Processes = new ObservableCollection<myProcess>();
+            foreach (var process in Process.GetProcesses())
             {
-                ListBox.Items.Add(process.ProcessName);
+                this.Processes.Add(new myProcess()
+                {
+                    Name = process.ProcessName,
+                    MemoryUsage = process.Id
+
+                }) ;
             }
+            ListBox.ItemsSource = Processes;
+        }
+
+
+      
+
+        private void createGrid()
+        {
+
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -55,20 +73,43 @@ namespace ProcessNote
 
         private void aotClick(object sender, RoutedEventArgs e)
         {
-            if (Window.Topmost == false)
+            if (this.Topmost == false)
             {
-                Window.Topmost = true;
+                this.Topmost = true;
             }
             else
             {
-                Window.Topmost = false;
+                this.Topmost = false;
             }
         }
 
         private void onClick(object sender, RoutedEventArgs e)
         {
-            processes[ListBox.SelectedIndex].Kill();
+            //Processes[ListBox.SelectedIndex].Kill();
         }
+
+        
+    }
+
+    public class myProcess
+    {
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        private int memoryUsage;
+
+        public int MemoryUsage
+        {
+            get { return memoryUsage; }
+            set { memoryUsage = value; }
+        }
+
+
     }
 }
 
