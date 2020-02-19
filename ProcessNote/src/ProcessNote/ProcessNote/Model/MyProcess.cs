@@ -109,7 +109,7 @@ namespace ProcessNote.Model
 
             double pct = myAppCpu.NextValue();
             //Thread.Sleep(1000);
-            return $"{pct} %";
+            return $"{pct:N2} %";
         }
 
         public MyProcess(Process process)

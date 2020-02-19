@@ -91,10 +91,11 @@ namespace ProcessNote
         private void RefreshProcessInfo(MyProcess process)
         {
             var refreshedProcess = Process.GetProcessById(process.Id);
+            
 
             process.RunTime = DateTime.Now - refreshedProcess.StartTime;
             process.MemoryUsage = refreshedProcess.PrivateMemorySize64;
-            //process.CpuUsage = GetCpuUsage(refreshedProcess);
+            process.CpuUsage = process.GetCpuUsage(refreshedProcess);
         }
     }
 
