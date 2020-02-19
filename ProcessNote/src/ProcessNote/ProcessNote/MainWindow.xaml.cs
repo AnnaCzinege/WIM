@@ -43,7 +43,7 @@ namespace ProcessNote
                         Threads = process.Threads,
                         CpuUsage = GetCpuUsage(process)
 
-                    }) ;
+                    });
                 }
                 catch (Win32Exception)
                 {
