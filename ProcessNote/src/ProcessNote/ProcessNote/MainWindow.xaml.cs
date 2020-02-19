@@ -101,8 +101,7 @@ namespace ProcessNote
                 runWindow.Show();
                 runWindow.Topmost = true;
             }
-            
-        }
+                  }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
