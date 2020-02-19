@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
-        Title="Process manager" Height="450" Width="800">
+        Title="Process manager" Height="450" Width="800" Loaded="WindowLoaded">
     <DockPanel Height="431">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -36,20 +36,11 @@
         </Menu>
         <TabControl Width="803" SelectionChanged="TabControl_SelectionChanged" Height="393">
             <TabItem Header="Processes">
-                <Canvas Height="338" AutomationProperties.IsRequiredForForm="True">
-                    <TabControl Width="803" SelectionChanged="TabControl_SelectionChanged" Height="366">
-                        <TabItem x:Name="Window1" Header="Name" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="48" Loaded="WindowLoaded">
-                            <Canvas>
-                                <ListBox x:Name="ListBox" SelectionChanged="ListBox_SelectionChanged" VerticalAlignment="Center" Height="286" Width="775" SelectionMode="Extended" Loaded="showIcons"/>
-                                <Button x:Name="EndTaskButton" Content="End Task" Canvas.Left="705" Canvas.Top="291" Height="31" Width="70" Click="onClick" ></Button>
-                            </Canvas>
-                        </TabItem>
-                        <TabItem Header="Status"/>
-                        <TabItem Header="CPU"/>
-                        <TabItem Header="Memory"/>
-                        <TabItem Header="Disk"/>
-                        <TabItem Header="Network"/>
-                    </TabControl>
+                <Canvas>
+                    <DataGrid x:Name="ListBox" Height="320" Width="780">
+                        
+                    </DataGrid>
+                    <Button Canvas.Top="330" Canvas.Left="700" Width="80" Height="20" Cursor="Hand" Click="onClick">End Task</Button>
                 </Canvas>
             </TabItem>
             <TabItem Header="Performance"/>
@@ -58,6 +49,7 @@
             <TabItem Header="Users"/>
             <TabItem Header="Details"/>
             <TabItem Header="Services"/>
+            
         </TabControl>
 
     </DockPanel>
