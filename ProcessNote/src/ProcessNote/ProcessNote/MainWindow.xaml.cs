@@ -8,6 +8,8 @@ using System.ComponentModel;
 using ProcessNote.Model;
 using ProcessNote.ViewModel;
 using System.Windows.Threading;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ProcessNote
 {
@@ -48,14 +50,18 @@ namespace ProcessNote
             else Window.Topmost = false;
         }
 
-        private void OnClick(object sender, RoutedEventArgs e)
+        private void EndTask(object sender, RoutedEventArgs e)
         {
-            var selectedProcess = (MyProcess) ListBox.SelectedItem;
-            var actualProcess = Process.GetProcessById(selectedProcess.Id);
+            var selectedProcesses = ListBox.SelectedItems;
+            int lenght = selectedProcesses.Count;
 
-            actualProcess.Kill();
-
-            MainWindowViewModel.Processes.ProcessCollection.Remove(selectedProcess);
+            for (int i = 0; i < lenght; i++)
+            {
+                MyProcess actual = (MyProcess)selectedProcesses[0];
+                var actualProcess = Process.GetProcessById(actual.Id);
+                actualProcess.Kill();
+                MainWindowViewModel.Processes.ProcessCollection.Remove(actual);
+            }
         }
 
         private void ShowRunWindow(object sender, RoutedEventArgs e)
@@ -93,12 +99,17 @@ namespace ProcessNote
 
         private void RefreshProcessInfo(MyProcess process)
         {
-            var refreshedProcess = Process.GetProcessById(process.Id);
-            
+            try
+            {
+                var refreshedProcess = Process.GetProcessById(process.Id);
 
-            process.RunTime = DateTime.Now - refreshedProcess.StartTime;
-            process.MemoryUsage = refreshedProcess.PrivateMemorySize64;
-            process.CpuUsage = process.GetCpuUsage(refreshedProcess);
+                process.RunTime = DateTime.Now - refreshedProcess.StartTime;
+                process.MemoryUsage = refreshedProcess.PrivateMemorySize64;
+                process.CpuUsage = process.GetCpuUsage(refreshedProcess);
+            }
+            catch (ArgumentException)
+            {
+            }
         }
     }
 

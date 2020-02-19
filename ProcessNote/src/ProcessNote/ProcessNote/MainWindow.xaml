@@ -34,7 +34,7 @@
                 <MenuItem Header="Collapse all"></MenuItem>
             </MenuItem>
         </Menu>
-        <TabControl Width="803" SelectionChanged="TabControl_SelectionChanged" Height="393">
+        <TabControl Width="803" Height="393">
             <TabItem Header="Processes">
                 <Canvas>
                     <DataGrid x:Name="ListBox" Height="320" AutoGenerateColumns="False" 
@@ -51,7 +51,7 @@
                         </DataGrid.Columns>
                         
                     </DataGrid>
-                    <Button Canvas.Top="330" Canvas.Left="700" Width="80" Height="20" Cursor="Hand" Click="OnClick">End Task</Button>
+                    <Button Canvas.Top="330" Canvas.Left="700" Width="80" Height="20" Cursor="Hand" Click="EndTask">End Task</Button>
                 </Canvas>
             </TabItem>
             <TabItem Header="App History"/>
