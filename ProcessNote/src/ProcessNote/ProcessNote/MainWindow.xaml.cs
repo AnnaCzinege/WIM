@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
 
 namespace ProcessNote
 {
@@ -22,6 +23,7 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Window RunWin { get; set; }
         myProcess myProcess = new myProcess();
         public MainWindow()
         {
@@ -73,17 +75,33 @@ namespace ProcessNote
 
         private void aotClick(object sender, RoutedEventArgs e)
         {
-            if (this.Topmost == false)
-            {
-                this.Topmost = true;
-            }
-            else
-            {
-                this.Topmost = false;
-            }
+            if (Window.Topmost == false) Window.Topmost = true;
+            else Window.Topmost = false;
         }
 
         private void onClick(object sender, RoutedEventArgs e)
+        {
+            processes[ListBox.SelectedIndex].Kill();
+        }
+
+        private void showRunWindow(object sender, RoutedEventArgs e)
+        {
+            if (RunWin == null) 
+            {
+                Run runWindow = new Run();
+                RunWin = runWindow;
+                runWindow.Show();
+                runWindow.Topmost = true;
+            }
+            
+        }
+
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void showIcons(object sender, RoutedEventArgs e)
         {
             //Processes[ListBox.SelectedIndex].Kill();
         }
