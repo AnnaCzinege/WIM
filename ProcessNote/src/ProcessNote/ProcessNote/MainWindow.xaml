@@ -36,13 +36,15 @@
         </Menu>
         <TabControl Width="803" SelectionChanged="TabControl_SelectionChanged" Height="393">
             <TabItem Header="Processes">
-                    <DataGrid x:Name="ListBox">
+                <DataGrid x:Name="ListBox" Loaded="loadIcons" IsReadOnly="True">
                         
-                    </DataGrid>
+                </DataGrid>
 
                     
             </TabItem>
-            <TabItem Header="Performance"/>
+            <TabItem Header="Performance">
+                
+            </TabItem>
             <TabItem Header="App History"/>
             <TabItem Header="Startup"/>
             <TabItem Header="Users"/>

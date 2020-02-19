@@ -24,15 +24,15 @@ namespace ProcessNote
     public partial class MainWindow : Window
     {
         public Window RunWin { get; set; }
+        public ObservableCollection<myProcess> Processes { get; set; }
+
         myProcess myProcess = new myProcess();
+
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = myProcess;
         }
-
-        public ObservableCollection<myProcess> Processes { get; set; }
-
 
         void GetAllProcesses()
         {
@@ -43,15 +43,11 @@ namespace ProcessNote
                 this.Processes.Add(new myProcess()
                 {
                     Name = process.ProcessName,
-                    MemoryUsage = process.Id
-
+                    MemoryUsage = process.Id,
                 }) ;
             }
             ListBox.ItemsSource = Processes;
         }
-
-
-      
 
         private void createGrid()
         {
@@ -101,9 +97,12 @@ namespace ProcessNote
             Close();
         }
 
-        private void showIcons(object sender, RoutedEventArgs e)
+        private void loadIcons(object sender, RoutedEventArgs e)
         {
-            //Processes[ListBox.SelectedIndex].Kill();
+            //foreach (var thisProcess in Processes)
+            //{
+              //  Icon ico = System.Drawing.Icon.ExtractAssociatedIcon(thisProcess.Name);
+            //}
         }
 
         
@@ -126,8 +125,6 @@ namespace ProcessNote
             get { return memoryUsage; }
             set { memoryUsage = value; }
         }
-
-
     }
 }
 
