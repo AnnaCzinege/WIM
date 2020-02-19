@@ -39,7 +39,7 @@
                 <Canvas>
                     <DataGrid x:Name="ListBox" Height="320" AutoGenerateColumns="False" 
                               CanUserResizeRows="False" CanUserResizeColumns="True"
-                              IsReadOnly="True" MouseDoubleClick="MouseDoubleClickRefresh">
+                              IsReadOnly="True" MouseDoubleClick="MouseDoubleClickRefresh" ItemsSource="{Binding ProcessCollection}">
                         <DataGrid.Columns>
                             <DataGridTextColumn  x:Name="id_column"  Header="PID" Binding="{Binding Id}" />
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="250"/>
