@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
+using System.Threading;
+using System.ComponentModel;
 
 namespace ProcessNote
 {
@@ -40,14 +42,44 @@ namespace ProcessNote
             Processes = new ObservableCollection<myProcess>();
             foreach (var process in Process.GetProcesses())
             {
-                this.Processes.Add(new myProcess()
+                try
                 {
-                    Name = process.ProcessName,
-                    MemoryUsage = process.Id,
-                }) ;
+                    this.Processes.Add(new myProcess()
+                    {
+                        Id = process.Id,
+                        Name = process.ProcessName,
+                        MemoryUsage = process.PrivateMemorySize64,
+                        StartTime = process.StartTime,
+                        RunTime = DateTime.Now - process.StartTime,
+                        Threads = process.Threads,
+                        CpuUsage = GetCpuUsage(process)
+
+                    }) ;
+                }
+                catch (Win32Exception)
+                {
+
+                }
+                catch (InvalidOperationException)
+                {
+
+                }
+                
             }
             ListBox.ItemsSource = Processes;
         }
+
+        private String GetCpuUsage(Process process)
+        {
+            PerformanceCounter myAppCpu = new PerformanceCounter( "Process", "% Processor Time", process.ProcessName);
+
+            double pct = myAppCpu.NextValue();
+            //Thread.Sleep(1000);
+            return $"{pct} %";
+        }
+
+
+      
 
         private void createGrid()
         {
@@ -105,26 +137,69 @@ namespace ProcessNote
             //}
         }
 
-        
+        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 
     public class myProcess
     {
+        private int id;
         private string name;
+        private long memoryUsage;
+        private DateTime startTime;
 
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
-        private int memoryUsage;
+        
 
-        public int MemoryUsage
+        public long MemoryUsage
         {
             get { return memoryUsage; }
             set { memoryUsage = value; }
         }
+
+        public DateTime StartTime { 
+            get { return startTime; }
+            set { startTime = value; }
+        }
+
+        private TimeSpan runTime;
+
+        public TimeSpan RunTime
+        {
+            get { return runTime; }
+            set { runTime = value; }
+        }
+
+        private ProcessThreadCollection threads;
+
+        public ProcessThreadCollection Threads
+        {
+            get { return threads; }
+            set { threads = value; }
+        }
+
+        private String cpuUsage;
+
+        public String CpuUsage
+        {
+            get { return cpuUsage; }
+            set { cpuUsage = value; }
+        }
+
+
+
     }
 }
 
