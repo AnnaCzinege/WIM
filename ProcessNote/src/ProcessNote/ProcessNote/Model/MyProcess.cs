@@ -96,10 +96,31 @@ namespace ProcessNote.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //For refresh 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string GetCpuUsage(Process process)
+        {
+            PerformanceCounter myAppCpu = new PerformanceCounter("Process", "% Processor Time", process.ProcessName);
+
+            double pct = myAppCpu.NextValue();
+            //Thread.Sleep(1000);
+            return $"{pct} %";
+        }
+
+        public MyProcess(Process process)
+        {
+            Id = process.Id;
+            Name = process.ProcessName;
+            MemoryUsage = process.PrivateMemorySize64;
+            StartTime = process.StartTime;
+            RunTime = DateTime.Now - process.StartTime;
+            Threads = process.Threads;
+            CpuUsage = GetCpuUsage(process);
         }
     }
 }

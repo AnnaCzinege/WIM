@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
-        Title="Process manager" Height="450" Width="710" Loaded="WindowLoaded">
+        Title="Process manager" Height="450" Width="800" Loaded="WindowLoaded">
     <DockPanel Height="431">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -46,11 +46,12 @@
                             <DataGridTextColumn Header="MemoryUsage" Binding="{Binding MemoryUsage}"/>
                             <DataGridTextColumn Header="CPU" Binding="{Binding CpuUsage}" />
                             <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}"/>
-                            <DataGridTextColumn Header="RunTime" Binding="{Binding RunTime}" Width="120"/>
+                            <DataGridTextColumn Header="RunTime" Binding="{Binding RunTime}" />
+                            <DataGridTextColumn Header="Threads" Binding="{Binding Threads}" />
                         </DataGrid.Columns>
                         
                     </DataGrid>
-                    <Button Canvas.Top="330" Canvas.Left="605" Width="80" Height="20" Cursor="Hand" Click="OnClick">End Task</Button>
+                    <Button Canvas.Top="330" Canvas.Left="700" Width="80" Height="20" Cursor="Hand" Click="OnClick">End Task</Button>
                 </Canvas>
             </TabItem>
             <TabItem Header="App History"/>

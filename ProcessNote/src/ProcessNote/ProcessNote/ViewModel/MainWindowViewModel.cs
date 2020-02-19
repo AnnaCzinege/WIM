@@ -14,24 +14,14 @@ namespace ProcessNote.ViewModel
             Processes = new Processes();
         }
 
-        public void GetAllProcesses()
+        public void GetAllProcesses(Process[] currentProccesses)
         {
 
-            foreach (var process in Process.GetProcesses())
+            foreach (var process in currentProccesses)
             {
                 try
                 {
-                    Processes.ProcessCollection.Add(new MyProcess()
-                    {
-
-                        Id = process.Id,
-                        Name = process.ProcessName,
-                        MemoryUsage = process.PrivateMemorySize64,
-                        StartTime = process.StartTime,
-                        RunTime = DateTime.Now - process.StartTime,
-                        Threads = process.Threads,
-
-                    });
+                    Processes.ProcessCollection.Add(new MyProcess(process));
                 }
                 catch (Win32Exception)
                 {

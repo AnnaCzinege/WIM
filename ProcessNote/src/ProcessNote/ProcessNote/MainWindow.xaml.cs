@@ -22,20 +22,12 @@ namespace ProcessNote
         public MainWindow()
         {
             MainWindowViewModel = new MainWindowViewModel();
-            MainWindowViewModel.GetAllProcesses();
-            DataContext = MainWindowViewModel.Processes.ProcessCollection;
+            DataContext = MainWindowViewModel.Processes;
             InitializeComponent();
         }
 
 
-        private string GetCpuUsage(Process process)
-        {
-            PerformanceCounter myAppCpu = new PerformanceCounter( "Process", "% Processor Time", process.ProcessName);
-
-            double pct = myAppCpu.NextValue();
-            //Thread.Sleep(1000);
-            return $"{pct} %";
-        }
+      
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -44,7 +36,8 @@ namespace ProcessNote
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            MainWindowViewModel.GetAllProcesses();
+           
+            MainWindowViewModel.GetAllProcesses(Process.GetProcesses());
         }
 
         private void AotClick(object sender, RoutedEventArgs e)
@@ -101,7 +94,7 @@ namespace ProcessNote
 
             process.RunTime = DateTime.Now - refreshedProcess.StartTime;
             process.MemoryUsage = refreshedProcess.PrivateMemorySize64;
-            process.CpuUsage = GetCpuUsage(refreshedProcess);
+            //process.CpuUsage = GetCpuUsage(refreshedProcess);
         }
     }
 
