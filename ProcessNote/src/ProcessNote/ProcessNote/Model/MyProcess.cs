@@ -16,6 +16,10 @@ namespace ProcessNote.Model
         private string _name;
         private long _memoryUsage;
         private DateTime _startTime;
+        private DateTime lastTime;
+        private TimeSpan lastTotalProcessorTime;
+        private DateTime currentTime;
+        private TimeSpan currentTotalProcessorTime;
 
         public int Id
         {
@@ -105,11 +109,28 @@ namespace ProcessNote.Model
 
         public string GetCpuUsage(Process process)
         {
-            PerformanceCounter myAppCpu = new PerformanceCounter("Process", "% Processor Time", process.ProcessName);
+            
+            if (lastTime == null)
+            {
+                lastTime = DateTime.Now;
+                lastTotalProcessorTime = process.TotalProcessorTime;
+                return "0.00 %";
+            }
 
-            double pct = myAppCpu.NextValue();
-            //Thread.Sleep(1000);
-            return $"{pct:N2} %";
+            else
+            {
+                currentTime = DateTime.Now;
+                currentTotalProcessorTime = process.TotalProcessorTime;
+
+                double CpuUsage = (currentTotalProcessorTime.TotalMilliseconds - lastTotalProcessorTime.TotalMilliseconds) /
+                    (currentTime.Subtract(lastTime).TotalMilliseconds / Convert.ToDouble(Environment.ProcessorCount));
+
+                lastTime = currentTime;
+                lastTotalProcessorTime = currentTotalProcessorTime;
+                return $"{CpuUsage:N2} %";
+            }
+            
+            
         }
 
         public MyProcess(Process process)
