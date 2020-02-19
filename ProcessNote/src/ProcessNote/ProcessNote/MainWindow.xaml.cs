@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.ComponentModel;
 using ProcessNote.Model;
+using ProcessNote.ViewModel;
 
 namespace ProcessNote
 {
@@ -14,48 +15,18 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainWindowViewModel MainWindowViewModel { get; set; }
         public Window RunWin { get; set; }
-        private readonly Processes _processes;
 
 
         public MainWindow()
         {
-            _processes = new Processes();
+            MainWindowViewModel = new MainWindowViewModel();
+            MainWindowViewModel.GetAllProcesses();
+            DataContext = MainWindowViewModel.Processes.ProcessCollection;
             InitializeComponent();
-            DataContext = _processes;
         }
 
-        void GetAllProcesses()
-        {
-            
-            foreach (var process in Process.GetProcesses())
-            {
-                try
-                {
-                    _processes.ProcessCollection.Add(new MyProcess()
-                    {
-                        
-                        Id = process.Id,
-                        Name = process.ProcessName,
-                        MemoryUsage = process.PrivateMemorySize64,
-                        StartTime = process.StartTime,
-                        RunTime = DateTime.Now - process.StartTime,
-                        Threads = process.Threads,
-                        CpuUsage = GetCpuUsage(process)
-
-                    });
-                }
-                catch (Win32Exception)
-                {
-
-                }
-                catch (InvalidOperationException)
-                {
-
-                }
-                
-            }
-        }
 
         private string GetCpuUsage(Process process)
         {
@@ -73,7 +44,7 @@ namespace ProcessNote
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            GetAllProcesses();
+            MainWindowViewModel.GetAllProcesses();
         }
 
         private void AotClick(object sender, RoutedEventArgs e)
@@ -89,7 +60,7 @@ namespace ProcessNote
 
             actualProcess.Kill();
 
-            _processes.ProcessCollection.Remove(selectedProcess);
+            MainWindowViewModel.Processes.ProcessCollection.Remove(selectedProcess);
         }
 
         private void ShowRunWindow(object sender, RoutedEventArgs e)

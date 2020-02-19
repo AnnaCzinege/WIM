@@ -10,7 +10,7 @@ using ProcessNote.Annotations;
 
 namespace ProcessNote.Model
 {
-    class MyProcess : INotifyPropertyChanged
+    public class MyProcess : INotifyPropertyChanged
     {
         private int _id;
         private string _name;

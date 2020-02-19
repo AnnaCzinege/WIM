@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProcessNote.Model
 {
-    class Processes
+    public class Processes
     {
 
         public Processes()
