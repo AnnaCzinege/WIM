@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.Threading;
 using System.ComponentModel;
+using System.Linq;
 
 namespace ProcessNote
 {
@@ -40,6 +41,8 @@ namespace ProcessNote
         {
             
             Processes = new ObservableCollection<myProcess>();
+            var data = new List<myProcess>();
+
             foreach (var process in Process.GetProcesses())
             {
                 try
@@ -54,7 +57,7 @@ namespace ProcessNote
                         Threads = process.Threads,
                         CpuUsage = GetCpuUsage(process)
 
-                    }) ;
+                    });
                 }
                 catch (Win32Exception)
                 {
