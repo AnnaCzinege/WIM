@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using ProcessNote.Model;
 using ProcessNote.ViewModel;
+using System.Windows.Threading;
 
 namespace ProcessNote
 {
@@ -15,9 +16,9 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer _timer; 
         public MainWindowViewModel MainWindowViewModel { get; set; }
         public Window RunWin { get; set; }
-
 
         public MainWindow()
         {
@@ -25,9 +26,6 @@ namespace ProcessNote
             DataContext = MainWindowViewModel.Processes;
             InitializeComponent();
         }
-
-
-      
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -38,6 +36,10 @@ namespace ProcessNote
         {
            
             MainWindowViewModel.GetAllProcesses(Process.GetProcesses());
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0, 0, 1);
+            _timer.Tick += new EventHandler(RefreshAllProcesses);
+            _timer.Start();
         }
 
         private void AotClick(object sender, RoutedEventArgs e)
@@ -80,13 +82,14 @@ namespace ProcessNote
             //}
         }
 
-
-        private void MouseDoubleClickRefresh(object sender, MouseButtonEventArgs e)
+        private void RefreshAllProcesses(object sender, EventArgs e)
         {
-            MyProcess selectedProcess = (MyProcess) ListBox.SelectedItem;
-            RefreshProcessInfo(selectedProcess);
+           
+            foreach (var process in MainWindowViewModel.Processes.ProcessCollection)
+            {
+                RefreshProcessInfo(process);
+            }
         }
-
 
         private void RefreshProcessInfo(MyProcess process)
         {
