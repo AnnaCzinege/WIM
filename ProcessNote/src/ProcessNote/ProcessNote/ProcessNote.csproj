@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Run.xaml.cs">
       <DependentUpon>Run.xaml</DependentUpon>
     </Compile>

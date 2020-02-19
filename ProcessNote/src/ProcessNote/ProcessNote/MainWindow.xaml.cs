@@ -17,6 +17,9 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.Threading;
 using System.ComponentModel;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
+using ProcessNote.Annotations;
 
 namespace ProcessNote
 {
@@ -26,9 +29,10 @@ namespace ProcessNote
     public partial class MainWindow : Window
     {
         public Window RunWin { get; set; }
-        public ObservableCollection<myProcess> Processes { get; set; }
+        public ObservableCollection<MyProcess> Processes { get; set; }
 
-        myProcess myProcess = new myProcess();
+        MyProcess myProcess = new MyProcess();
+
 
         public MainWindow()
         {
@@ -39,13 +43,14 @@ namespace ProcessNote
         void GetAllProcesses()
         {
             
-            Processes = new ObservableCollection<myProcess>();
+            Processes = new ObservableCollection<MyProcess>();
             foreach (var process in Process.GetProcesses())
             {
                 try
                 {
-                    this.Processes.Add(new myProcess()
+                    this.Processes.Add(new MyProcess()
                     {
+                        
                         Id = process.Id,
                         Name = process.ProcessName,
                         MemoryUsage = process.PrivateMemorySize64,
@@ -69,7 +74,7 @@ namespace ProcessNote
             ListBox.ItemsSource = Processes;
         }
 
-        private String GetCpuUsage(Process process)
+        private string GetCpuUsage(Process process)
         {
             PerformanceCounter myAppCpu = new PerformanceCounter( "Process", "% Processor Time", process.ProcessName);
 
@@ -101,18 +106,23 @@ namespace ProcessNote
             GetAllProcesses();
         }
 
-        private void aotClick(object sender, RoutedEventArgs e)
+        private void AotClick(object sender, RoutedEventArgs e)
         {
             if (Window.Topmost == false) Window.Topmost = true;
             else Window.Topmost = false;
         }
 
-        private void onClick(object sender, RoutedEventArgs e)
+        private void OnClick(object sender, RoutedEventArgs e)
         {
-            //Processes[ListBox.SelectedIndex].Kill();
+            var selectedProcess = (MyProcess) ListBox.SelectedItem;
+            var actualProcess = Process.GetProcessById(selectedProcess.Id);
+
+            actualProcess.Kill();
+
+            Processes.Remove(selectedProcess);
         }
 
-        private void showRunWindow(object sender, RoutedEventArgs e)
+        private void ShowRunWindow(object sender, RoutedEventArgs e)
         {
             if (RunWin == null) 
             {
@@ -124,12 +134,12 @@ namespace ProcessNote
             
         }
 
-        private void exit(object sender, RoutedEventArgs e)
+        private void Exit(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void loadIcons(object sender, RoutedEventArgs e)
+        private void LoadIcons(object sender, RoutedEventArgs e)
         {
             //foreach (var thisProcess in Processes)
             //{
@@ -137,69 +147,115 @@ namespace ProcessNote
             //}
         }
 
-        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
 
+        private void MouseDoubleClickRefresh(object sender, MouseButtonEventArgs e)
+        {
+            MyProcess selectedProcess = (MyProcess) ListBox.SelectedItem;
+            RefreshProcessInfo(selectedProcess);
+        }
+
+
+        private void RefreshProcessInfo(MyProcess process)
+        {
+            var refreshedProcess = Process.GetProcessById(process.Id);
+
+            process.RunTime = DateTime.Now - refreshedProcess.StartTime;
+            process.MemoryUsage = refreshedProcess.PrivateMemorySize64;
+            process.CpuUsage = GetCpuUsage(refreshedProcess);
         }
     }
 
-    public class myProcess
+
+    public class MyProcess : INotifyPropertyChanged
     {
-        private int id;
-        private string name;
-        private long memoryUsage;
-        private DateTime startTime;
+        private int _id;
+        private string _name;
+        private long _memoryUsage;
+        private DateTime _startTime;
 
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
         }
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
         }
 
         
-
         public long MemoryUsage
         {
-            get { return memoryUsage; }
-            set { memoryUsage = value; }
+            get => _memoryUsage;
+            set
+            {
+                _memoryUsage = value;
+                OnPropertyChanged();
+            }
         }
 
         public DateTime StartTime { 
-            get { return startTime; }
-            set { startTime = value; }
+            get => _startTime;
+            set
+            {
+                _startTime = value;
+                OnPropertyChanged();
+            }
         }
 
-        private TimeSpan runTime;
+        private TimeSpan _runTime;
 
         public TimeSpan RunTime
         {
-            get { return runTime; }
-            set { runTime = value; }
+            get => _runTime;
+            set
+            {
+                _runTime = value;
+                OnPropertyChanged();
+            }
         }
 
         private ProcessThreadCollection threads;
 
         public ProcessThreadCollection Threads
         {
-            get { return threads; }
-            set { threads = value; }
+            get => threads;
+            set
+            {
+                threads = value;
+                OnPropertyChanged();
+            }
         }
 
-        private String cpuUsage;
+        private string _cpuUsage;
 
-        public String CpuUsage
+        public string CpuUsage
         {
-            get { return cpuUsage; }
-            set { cpuUsage = value; }
+            get => _cpuUsage;
+            set
+            {
+                _cpuUsage = value;
+                OnPropertyChanged();
+            }
         }
 
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
 

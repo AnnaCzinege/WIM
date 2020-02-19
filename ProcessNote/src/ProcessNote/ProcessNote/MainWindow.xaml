@@ -9,12 +9,12 @@
     <DockPanel Height="431">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Run new task" Click="showRunWindow"></MenuItem>
+                <MenuItem Header="Run new task" Click="ShowRunWindow"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Exit" Click="exit"></MenuItem>
+                <MenuItem Header="Exit" Click="Exit"></MenuItem>
             </MenuItem>
             <MenuItem Header="Options">
-                <MenuItem Header="Always on top" Click="aotClick" IsCheckable="True"></MenuItem>
+                <MenuItem Header="Always on top" Click="AotClick" IsCheckable="True"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Minimize on use" IsCheckable="True"></MenuItem>
                 <Separator></Separator>
@@ -39,9 +39,9 @@
                 <Canvas>
                     <DataGrid x:Name="ListBox" Height="320" AutoGenerateColumns="False" 
                               CanUserResizeRows="False" CanUserResizeColumns="True"
-                              IsReadOnly="True">
+                              IsReadOnly="True" MouseDoubleClick="MouseDoubleClickRefresh">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="PID" Binding="{Binding Id}" />
+                            <DataGridTextColumn  x:Name="id_column"  Header="PID" Binding="{Binding Id}" />
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="250"/>
                             <DataGridTextColumn Header="MemoryUsage" Binding="{Binding MemoryUsage}"/>
                             <DataGridTextColumn Header="CPU" Binding="{Binding CpuUsage}" />
@@ -50,7 +50,7 @@
                         </DataGrid.Columns>
                         
                     </DataGrid>
-                    <Button Canvas.Top="330" Canvas.Left="605" Width="80" Height="20" Cursor="Hand" Click="onClick">End Task</Button>
+                    <Button Canvas.Top="330" Canvas.Left="605" Width="80" Height="20" Cursor="Hand" Click="OnClick">End Task</Button>
                 </Canvas>
             </TabItem>
             <TabItem Header="App History"/>
