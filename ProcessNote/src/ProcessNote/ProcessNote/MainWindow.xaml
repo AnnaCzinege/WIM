@@ -47,12 +47,12 @@
                             <DataGridTextColumn Header="CPU" Binding="{Binding CpuUsage}" />
                             <DataGridTextColumn Header="StartTime" Binding="{Binding StartTime}"/>
                             <DataGridTextColumn Header="RunTime" Binding="{Binding RunTime}" />
-                            <DataGridTextColumn Header="Threads" Binding="{Binding Threads}" />
                         </DataGrid.Columns>
 
                     </DataGrid>
                     <Button Canvas.Top="330" Canvas.Left="700" Width="80" Height="20" Cursor="Hand" Click="EndTask">End Task</Button>
-                    <Button Content="Search Online" Canvas.Left="598" Canvas.Top="330" Width="76" Click="Search"/>
+                    <Button Content="Search Online" Canvas.Left="600" Canvas.Top="330"  Click="Search"/>
+                    <Button Content="Show Threads" Canvas.Left="500" Canvas.Top="330" Click="ShowThreads" />
                 </Canvas>
             </TabItem>
             <TabItem Header="App History"/>

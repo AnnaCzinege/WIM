@@ -10,6 +10,7 @@ using ProcessNote.ViewModel;
 using System.Windows.Threading;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace ProcessNote
 {
@@ -119,11 +120,24 @@ namespace ProcessNote
             else
             {
                 if (ListBox.SelectedItems.Count > 1) MessageBox.Show("Multiple processes selected", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
-               
                 else
                 { 
                     MyProcess process = (MyProcess)ListBox.SelectedItem;
                     Process.Start("chrome.exe", $"http://google.com/search?q={process.Name}");
+                }
+            }
+        }
+
+        private void ShowThreads(object sender, RoutedEventArgs e)
+        {
+            if (ListBox.SelectedItems.Count == 0) MessageBox.Show("No process selected", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                if (ListBox.SelectedItems.Count > 1) MessageBox.Show("Multiple processes selected", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    MyProcess process = (MyProcess)ListBox.SelectedItem;
+                    MessageBox.Show($"Number of threads: {process.Threads.Count}", "Threads", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
