@@ -112,6 +112,21 @@ namespace ProcessNote
             {
             }
         }
+
+        private void Search(object sender, RoutedEventArgs e)
+        {
+            if (ListBox.SelectedItems.Count == 0) Process.Start("chrome.exe", "http://github.com/AnnaCzinege/WIM");
+            else
+            {
+                if (ListBox.SelectedItems.Count > 1) MessageBox.Show("Multiple processes selected", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+               
+                else
+                { 
+                    MyProcess process = (MyProcess)ListBox.SelectedItem;
+                    Process.Start("chrome.exe", $"http://google.com/search?q={process.Name}");
+                }
+            }
+        }
     }
 
 }
