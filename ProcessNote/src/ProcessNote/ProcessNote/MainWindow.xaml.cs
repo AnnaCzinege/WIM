@@ -103,7 +103,8 @@ namespace ProcessNote
             {
                 var refreshedProcess = Process.GetProcessById(process.Id);
 
-                process.RunTime = DateTime.Now - refreshedProcess.StartTime;
+                var runTime = DateTime.Now - refreshedProcess.StartTime;
+                process.RunTime = string.Format("{0}:{1}:{2}", (int) runTime.Hours, (int)runTime.Minutes, (int)runTime.Seconds);
                 process.MemoryUsage = refreshedProcess.PrivateMemorySize64;
                 process.CpuUsage = process.GetCpuUsage(refreshedProcess);
             }

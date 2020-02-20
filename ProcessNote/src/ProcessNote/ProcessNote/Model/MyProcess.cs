@@ -61,9 +61,9 @@ namespace ProcessNote.Model
             }
         }
 
-        private TimeSpan _runTime;
+        private string _runTime;
 
-        public TimeSpan RunTime
+        public string RunTime
         {
             get => _runTime;
             set
@@ -139,7 +139,8 @@ namespace ProcessNote.Model
             Name = process.ProcessName;
             MemoryUsage = process.PrivateMemorySize64;
             StartTime = process.StartTime;
-            RunTime = DateTime.Now - process.StartTime;
+            var runTime = DateTime.Now - process.StartTime;
+            RunTime = string.Format("{0}:{1}:{2}", (int)runTime.Hours, (int)runTime.Minutes, (int)runTime.Seconds);
             Threads = process.Threads;
             CpuUsage = GetCpuUsage(process);
         }
