@@ -105,7 +105,7 @@ namespace ProcessNote
 
                 var runTime = DateTime.Now - refreshedProcess.StartTime;
                 process.RunTime = string.Format("{0}:{1}:{2}", (int) runTime.Hours, (int)runTime.Minutes, (int)runTime.Seconds);
-                process.MemoryUsage = refreshedProcess.PrivateMemorySize64;
+                process.MemoryUsage = $"{(((float)refreshedProcess.WorkingSet64) / 1024 / 1024):N1} MB";
                 process.CpuUsage = process.GetCpuUsage(refreshedProcess);
             }
             catch (ArgumentException)

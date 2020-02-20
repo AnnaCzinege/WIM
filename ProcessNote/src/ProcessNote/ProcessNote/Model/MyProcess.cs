@@ -14,7 +14,7 @@ namespace ProcessNote.Model
     {
         private int _id;
         private string _name;
-        private long _memoryUsage;
+        private string _memoryUsage;
         private DateTime _startTime;
         private DateTime lastTime;
         private TimeSpan lastTotalProcessorTime;
@@ -41,7 +41,7 @@ namespace ProcessNote.Model
         }
 
 
-        public long MemoryUsage
+        public string MemoryUsage
         {
             get => _memoryUsage;
             set
@@ -137,7 +137,7 @@ namespace ProcessNote.Model
         {
             Id = process.Id;
             Name = process.ProcessName;
-            MemoryUsage = process.PrivateMemorySize64;
+            MemoryUsage = $"{(((float)process.WorkingSet64) / 1024 / 1024):N1} MB";
             StartTime = process.StartTime;
             var runTime = DateTime.Now - process.StartTime;
             RunTime = string.Format("{0}:{1}:{2}", (int)runTime.Hours, (int)runTime.Minutes, (int)runTime.Seconds);
