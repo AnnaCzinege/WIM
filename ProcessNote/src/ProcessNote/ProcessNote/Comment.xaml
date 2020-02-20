@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
-        Title="Comments" Height="450" Width="800">
+        Title="{Binding Name}" Height="450" Width="800" KeyDown="EnterKeyPressed">
     <Grid>
         <ListBox x:Name="Comments" Margin="10,10,9.6,74" ItemsSource="{Binding CommentList}" >
             

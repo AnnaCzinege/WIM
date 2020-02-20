@@ -43,10 +43,26 @@ namespace ProcessNote
 
         private void AddNewComment(object sender, RoutedEventArgs e)
         {
+            AddNewCommentToCommentList();
+        }
+
+        private void AddNewCommentToCommentList()
+        {
             string comment = CommentTextBox.Text;
-            SelectedProcess.CommentList.Add(comment);
+            DateTime commentDate = DateTime.Now;
+            SelectedProcess.CommentList.Add($"Comment message: {comment}\nPosted at: {commentDate}\n");
             Comments.Items.Refresh();
             CommentTextBox.Clear();
         }
+
+        private void EnterKeyPressed(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                AddNewCommentToCommentList();
+            }
+        }
+
+
     }
 }
