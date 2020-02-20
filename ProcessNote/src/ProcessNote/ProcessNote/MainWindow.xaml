@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
-        Title="Process manager" Height="450" Width="800" Loaded="WindowLoaded">
+        Title="Process manager" Height="450" Width="665.6" Loaded="WindowLoaded">
     <DockPanel Height="431">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -50,9 +50,9 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
-                    <Button Canvas.Top="330" Canvas.Left="700" Width="80" Height="20" Cursor="Hand" Click="EndTask">End Task</Button>
-                    <Button Content="Search Online" Canvas.Left="600" Canvas.Top="330"  Click="Search"/>
-                    <Button Content="Show Threads" Canvas.Left="500" Canvas.Top="330" Click="ShowThreads" />
+                    <Button Canvas.Top="330" Canvas.Left="550" Width="80" Height="25" Cursor="Hand" Click="EndTask">End Task</Button>
+                    <Button Content="Search Online" Canvas.Left="451" Canvas.Top="330" Height="25" Click="Search"/>
+                    <Button Content="Show Threads" Canvas.Left="346" Canvas.Top="330" Height="25" Click="ShowThreads" />
                 </Canvas>
             </TabItem>
             <TabItem Header="App History"/>

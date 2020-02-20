@@ -138,13 +138,13 @@ namespace ProcessNote
                 else
                 {
                     MyProcess process = (MyProcess)ListBox.SelectedItem;
-                    //foreach (var t in process.Threads)
-                    //{
-                    //    ProcessThread sdfdsf = (ProcessThread)t;
-                    //    Console.WriteLine(sdfdsf.ToString());
-                    //    int a = 4;
-                    //}
-                    MessageBox.Show($"Number of threads: {process.Threads.Count}", "Threads", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string threadInfo = "";
+                    foreach (var threadSecret in process.Threads)
+                    {
+                        ProcessThread thread = (ProcessThread)threadSecret;
+                        threadInfo += $"Thread ID: {thread.Id} | Priority Level: {thread.PriorityLevel}\n";
+                    }
+                    MessageBox.Show(threadInfo, "Threads", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
