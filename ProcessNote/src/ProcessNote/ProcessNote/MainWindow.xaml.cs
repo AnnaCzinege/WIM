@@ -55,14 +55,18 @@ namespace ProcessNote
         private void EndTask(object sender, RoutedEventArgs e)
         {
             var selectedProcesses = ListBox.SelectedItems;
-            int lenght = selectedProcesses.Count;
-
-            for (int i = 0; i < lenght; i++)
+            if (selectedProcesses.Count < 1) MessageBox.Show("No process selected", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
-                MyProcess actual = (MyProcess)selectedProcesses[0];
-                var actualProcess = Process.GetProcessById(actual.Id);
-                actualProcess.Kill();
-                MainWindowViewModel.Processes.ProcessCollection.Remove(actual);
+                int lenght = selectedProcesses.Count;
+
+                for (int i = 0; i < lenght; i++)
+                {
+                    MyProcess actual = (MyProcess)selectedProcesses[0];
+                    var actualProcess = Process.GetProcessById(actual.Id);
+                    actualProcess.Kill();
+                    MainWindowViewModel.Processes.ProcessCollection.Remove(actual);
+                }
             }
         }
 
@@ -157,6 +161,14 @@ namespace ProcessNote
                 CommentWin = commentWin;
                 commentWin.Show();
                 commentWin.Topmost = true;
+            }
+        }
+
+        private void EscapePressed(object sender, KeyEventArgs e)
+        {
+            if (e.Key.Equals(Key.Escape))
+            {
+                ListBox.SelectedItems.Clear();
             }
         }
     }
