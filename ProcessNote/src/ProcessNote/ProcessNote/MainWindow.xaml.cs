@@ -22,6 +22,7 @@ namespace ProcessNote
         private DispatcherTimer _timer; 
         public MainWindowViewModel MainWindowViewModel { get; set; }
         public Window RunWin { get; set; }
+        public Window CommentWin { get; set; }
 
         public MainWindow()
         {
@@ -137,8 +138,25 @@ namespace ProcessNote
                 else
                 {
                     MyProcess process = (MyProcess)ListBox.SelectedItem;
+                    //foreach (var t in process.Threads)
+                    //{
+                    //    ProcessThread sdfdsf = (ProcessThread)t;
+                    //    Console.WriteLine(sdfdsf.ToString());
+                    //    int a = 4;
+                    //}
                     MessageBox.Show($"Number of threads: {process.Threads.Count}", "Threads", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
+            }
+        }
+
+        private void ClickOnTask(object sender, MouseButtonEventArgs e)
+        {
+            if (CommentWin == null)
+            {
+                Comment commentWin = new Comment((MyProcess)ListBox.SelectedItem);
+                CommentWin = commentWin;
+                commentWin.Show();
+                commentWin.Topmost = true;
             }
         }
     }

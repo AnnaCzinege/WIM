@@ -97,6 +97,18 @@ namespace ProcessNote.Model
             }
         }
 
+        private List<string> _commentList;
+
+        public List<string> CommentList
+        {
+            get => _commentList;
+            set
+            {
+                _commentList = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -143,6 +155,9 @@ namespace ProcessNote.Model
             RunTime = string.Format("{0}:{1}:{2}", (int)runTime.Hours, (int)runTime.Minutes, (int)runTime.Seconds);
             Threads = process.Threads;
             CpuUsage = GetCpuUsage(process);
+            CommentList = new List<string>();
         }
+
+
     }
 }
