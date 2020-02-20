@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Drawing;
+using System.ComponentModel;
+using ProcessNote.Model;
+using ProcessNote.ViewModel;
+using System.Windows.Threading;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace ProcessNote
 {
@@ -23,39 +19,16 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer _timer; 
+        public MainWindowViewModel MainWindowViewModel { get; set; }
         public Window RunWin { get; set; }
-        myProcess myProcess = new myProcess();
+        public Window CommentWin { get; set; }
+
         public MainWindow()
         {
+            MainWindowViewModel = new MainWindowViewModel();
+            DataContext = MainWindowViewModel.Processes;
             InitializeComponent();
-            this.DataContext = myProcess;
-        }
-
-        public ObservableCollection<myProcess> Processes { get; set; }
-
-
-        void GetAllProcesses()
-        {
-            
-            Processes = new ObservableCollection<myProcess>();
-            foreach (var process in Process.GetProcesses())
-            {
-                this.Processes.Add(new myProcess()
-                {
-                    Name = process.ProcessName,
-                    MemoryUsage = process.Id
-
-                }) ;
-            }
-            ListBox.ItemsSource = Processes;
-        }
-
-
-      
-
-        private void createGrid()
-        {
-
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,28 +36,37 @@ namespace ProcessNote
 
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            GetAllProcesses();
+           
+            MainWindowViewModel.GetAllProcesses(Process.GetProcesses());
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0, 0, 1);
+            _timer.Tick += new EventHandler(RefreshAllProcesses);
+            _timer.Start();
         }
 
-        private void aotClick(object sender, RoutedEventArgs e)
+        private void AotClick(object sender, RoutedEventArgs e)
         {
             if (Window.Topmost == false) Window.Topmost = true;
             else Window.Topmost = false;
         }
 
-        private void onClick(object sender, RoutedEventArgs e)
+        private void EndTask(object sender, RoutedEventArgs e)
         {
-            //Processes[ListBox.SelectedIndex].Kill();
+            var selectedProcesses = ListBox.SelectedItems;
+            int lenght = selectedProcesses.Count;
+
+            for (int i = 0; i < lenght; i++)
+            {
+                MyProcess actual = (MyProcess)selectedProcesses[0];
+                var actualProcess = Process.GetProcessById(actual.Id);
+                actualProcess.Kill();
+                MainWindowViewModel.Processes.ProcessCollection.Remove(actual);
+            }
         }
 
-        private void showRunWindow(object sender, RoutedEventArgs e)
+        private void ShowRunWindow(object sender, RoutedEventArgs e)
         {
             if (RunWin == null) 
             {
@@ -93,41 +75,91 @@ namespace ProcessNote
                 runWindow.Show();
                 runWindow.Topmost = true;
             }
-            
-        }
+                  }
 
-        private void exit(object sender, RoutedEventArgs e)
+        private void Exit(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void showIcons(object sender, RoutedEventArgs e)
+        private void LoadIcons(object sender, RoutedEventArgs e)
         {
-            //Processes[ListBox.SelectedIndex].Kill();
+            //foreach (var thisProcess in Processes)
+            //{
+              //  Icon ico = System.Drawing.Icon.ExtractAssociatedIcon(thisProcess.Name);
+            //}
         }
 
-        
+        private void RefreshAllProcesses(object sender, EventArgs e)
+        {
+           
+            foreach (var process in MainWindowViewModel.Processes.ProcessCollection)
+            {
+                RefreshProcessInfo(process);
+            }
+        }
+
+        private void RefreshProcessInfo(MyProcess process)
+        {
+            try
+            {
+                var refreshedProcess = Process.GetProcessById(process.Id);
+
+                var runTime = DateTime.Now - refreshedProcess.StartTime;
+                process.RunTime = string.Format("{0}:{1}:{2}", (int) runTime.Hours, (int)runTime.Minutes, (int)runTime.Seconds);
+                process.MemoryUsage = $"{(((float)refreshedProcess.WorkingSet64) / 1024 / 1024):N1} MB";
+                process.CpuUsage = process.GetCpuUsage(refreshedProcess);
+            }
+            catch (ArgumentException)
+            {
+            }
+        }
+
+        private void Search(object sender, RoutedEventArgs e)
+        {
+            if (ListBox.SelectedItems.Count == 0) Process.Start("chrome.exe", "http://github.com/AnnaCzinege/WIM");
+            else
+            {
+                if (ListBox.SelectedItems.Count > 1) MessageBox.Show("Multiple processes selected", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                { 
+                    MyProcess process = (MyProcess)ListBox.SelectedItem;
+                    Process.Start("chrome.exe", $"http://google.com/search?q={process.Name}");
+                }
+            }
+        }
+
+        private void ShowThreads(object sender, RoutedEventArgs e)
+        {
+            if (ListBox.SelectedItems.Count == 0) MessageBox.Show("No process selected", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                if (ListBox.SelectedItems.Count > 1) MessageBox.Show("Multiple processes selected", "Selection error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    MyProcess process = (MyProcess)ListBox.SelectedItem;
+                    string threadInfo = "";
+                    foreach (var threadSecret in process.Threads)
+                    {
+                        ProcessThread thread = (ProcessThread)threadSecret;
+                        threadInfo += $"Thread ID: {thread.Id} | Priority Level: {thread.PriorityLevel}\n";
+                    }
+                    MessageBox.Show(threadInfo, "Threads", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+
+        private void ClickOnTask(object sender, MouseButtonEventArgs e)
+        {
+            if (CommentWin == null)
+            {
+                Comment commentWin = new Comment((MyProcess)ListBox.SelectedItem);
+                CommentWin = commentWin;
+                commentWin.Show();
+                commentWin.Topmost = true;
+            }
+        }
     }
 
-    public class myProcess
-    {
-        private string name;
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        private int memoryUsage;
-
-        public int MemoryUsage
-        {
-            get { return memoryUsage; }
-            set { memoryUsage = value; }
-        }
-
-
-    }
 }
 

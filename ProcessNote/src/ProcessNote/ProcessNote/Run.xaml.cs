@@ -59,7 +59,7 @@ namespace ProcessNote
                     Process proc = new Process();
                     proc.StartInfo.FileName = textField.Text;
                     proc.Start();
-                    setRunWin();
+                    setRunWin(); //Run win closed with X button and w/ running task too
                     Close();
                 }
                 catch (Exception ex)
