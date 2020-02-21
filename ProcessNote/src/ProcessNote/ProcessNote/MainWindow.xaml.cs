@@ -143,12 +143,19 @@ namespace ProcessNote
                 {
                     MyProcess process = (MyProcess)ListBox.SelectedItem;
                     string threadInfo = "";
-                    foreach (var threadSecret in process.Threads)
+                    try
                     {
-                        ProcessThread thread = (ProcessThread)threadSecret;
-                        threadInfo += $"Thread ID: {thread.Id} | Priority Level: {thread.PriorityLevel}\n";
+                        foreach (var threadSecret in process.Threads)
+                        {
+                            ProcessThread thread = (ProcessThread)threadSecret;
+                            threadInfo += $"Thread ID: {thread.Id} | Priority Level: {thread.PriorityLevel}\n";
+                        }
+                        MessageBox.Show(threadInfo, "Threads", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    MessageBox.Show(threadInfo, "Threads", MessageBoxButton.OK, MessageBoxImage.Information);
+                    catch (InvalidOperationException)
+                    {
+                        MessageBox.Show("Thread info acces denied", "Threads", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }
